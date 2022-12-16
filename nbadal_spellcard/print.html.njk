@@ -29,8 +29,8 @@
     background-color: #e8ebec;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    font-size: 1.5rem;
-    line-height: 1.5rem;
+    font-size: 2rem;
+    line-height: 2rem;
     font-family: "nodesto-condensed", serif;
     font-weight: normal;
     font-style: normal;
@@ -42,8 +42,8 @@
     padding: 4px;
     text-align: center;
     color: #e8ebec;
-    font-size: 0.8rem;
-    line-height: 0.8rem;
+    font-size: 1rem;
+    line-height: 1rem;
   }
 
   .StatsTable {
@@ -73,8 +73,8 @@
     grid-row: 1;
     grid-column: 1/4;
     text-align: center;
-    font-size: 1rem;
-    line-height: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
     font-family: "nodesto-condensed", serif;
     font-weight: normal;
     font-style: normal;
@@ -98,11 +98,11 @@
     grid-column: 3;
     position: relative;
     z-index: 0;
-    height: 1.36rem;
-    width: 1.12rem;
+    height: 1.75rem;
+    width: 1.15rem;
     font-family: "nodesto-condensed", serif;
     font-size: 1rem;
-    line-height: 1.4rem;
+    line-height: 1.85rem;
     text-align: center;
     color: #e8ebec;
   }
@@ -132,8 +132,8 @@
   .DetailsBlock {
     padding: 3px 8px;
     background-color: #e8ebec;
-    font-size: 0.85rem;
-    line-height: 1rem;
+    font-size: 1.15rem;
+    line-height: 1.25rem;
     text-align: justify;
   }
 
@@ -141,8 +141,8 @@
     padding: 4px;
     text-align: center;
     color: #e8ebec;
-    font-size: 0.75rem;
-    line-height: 0.75rem;
+    font-size: 1rem;
+    line-height: 1rem;
   }
 
   .Header~.DetailsBlock {
@@ -154,14 +154,14 @@
     display: flex;
     justify-content: space-between;
     color: #e8ebec;
-    font-size: 1rem;
-    line-height: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
     font-weight: bold;
   }
 
   .Category {
-    font-size: 1.15rem;
-    line-height: 1.15rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
     font-family: "nodesto-condensed", serif;
     font-weight: normal;
     font-style: normal;
@@ -220,7 +220,7 @@
     </div>
     <div class="DetailsContainer">
       <div class="DetailsBlock">
-        {{ it.desc }}
+        {{ it.desc | nl2br | replace(r/\*\*([^\*]*)\*\*/g, '<b>$1</b>') | safe }}
       </div>
       {% if it.higher_level %}
       <div class="Header">At Higher Levels</div>
