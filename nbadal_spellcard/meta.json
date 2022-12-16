@@ -1,0 +1,10 @@
+{
+	"name": "Spell Card",
+	"slug": "spellcard",
+	"author": "nbadal",
+	"description": "This is a template to display Open5e spells",
+	"dataSources": [
+		"ds:BigJk+open5e-spells"
+	],
+	"images": {}
+}
