@@ -213,12 +213,11 @@
       {% set saves -%}
       {% macro abSave(name, value, comma) -%}
         {% if value != null -%}
-          {{ comma() }}
-          {{ name }}: {% if value >= 0 %}+{% endif %}{{ value }}
+          {{ comma() }} {{ name }}: {% if value >= 0 %}+{% endif %}{{ value }}
         {%- endif %}
       {%- endmacro %}
       {% set comma = joiner() %}
-      {{ abSave("Str",it.strength_save, comma) }}{{ abSave("Dex",it.dexterity_save, comma) }}{{ abSave("Con",it.constitution_save, comma) }}{{ abSave("Int",it.intelligence_save, comma) }}{{ abSave("Wis",it.wisdom_save, comma) }}{{ abSave("Cha",it.charisma_save, comma) }}
+        {{ abSave("Str",it.strength_save, comma) }}{{ abSave("Dex",it.dexterity_save, comma) }}{{ abSave("Con",it.constitution_save, comma) }}{{ abSave("Int",it.intelligence_save, comma) }}{{ abSave("Wis",it.wisdom_save, comma) }}{{ abSave("Cha",it.charisma_save, comma) }}
       {%- endset %}
       {{ detailBlock("Saving Throws", saves | trim) }}
 
