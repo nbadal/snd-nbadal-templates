@@ -1,0 +1,11 @@
+{
+	"name": "Item Card",
+	"slug": "itemcard",
+	"author": "nbadal",
+	"description": "This is a template to display Open5e items in a card-like format",
+	"dataSources": [
+		"ds:BigJk+open5e-magic-items",
+		"ds:BigJk+open5e-weapons"
+	],
+	"images": {}
+}

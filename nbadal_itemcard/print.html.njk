@@ -1,0 +1,109 @@
+<style>
+  @font-face {
+    font-family: "nodesto-condensed";
+    src: url("/proxy/https://github.com/jonathonf/solbera-dnd-fonts/raw/master/Nodesto%20Caps%20Condensed/Nodesto%20Caps%20Condensed.otf") format("opentype");
+    font-weight: normal;
+  }
+
+  @font-face {
+    font-family: "Scaly Sans";
+    src: url("/proxy/https://github.com/jonathonf/solbera-dnd-fonts/raw/master/Scaly%20Sans/Scaly%20Sans.otf") format("opentype");
+    font-weight: normal;
+  }
+
+  .CardFront {
+    width: auto;
+    border-radius: 8px;
+  }
+
+  .CardContent {
+    padding: 10px 10px 6px;
+
+    font-family: "Scaly Sans", serif;
+    font-style: normal;
+    font-weight: 300;
+  }
+
+  .CardContent hr {
+    margin: 0;
+    height: 3px;
+  }
+
+  .Title {
+    padding: 2px 8px;
+    background-color: #e8ebec;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-family: "nodesto-condensed", serif;
+    font-weight: normal;
+    font-style: normal;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .Subtitle {
+    padding: 4px;
+    text-align: center;
+    color: #e8ebec;
+    font-size: 1.15rem;
+    line-height: 1.15rem;
+  }
+
+  .DetailsContainer {
+    overflow: auto;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .DetailsContainer :first-child {
+    padding-top: 8px;
+  }
+
+  .DetailsContainer :last-child {
+    padding-bottom: 8px;
+  }
+
+  .DetailsBlock {
+    padding: 3px 8px;
+    background-color: #e8ebec;
+    font-size: 1.15rem;
+    line-height: 1.25rem;
+  }
+
+  .CardFooter {
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    color: #e8ebec;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-weight: bold;
+  }
+
+  .Category {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-family: "nodesto-condensed", serif;
+    font-weight: normal;
+    font-style: normal;
+    text-align: center;
+  }
+</style>
+{% set color = "black" %}
+<div class='CardFront' style="background-color: {{ color }}">
+  <div class='CardContent'>
+    <div class="Title">
+      {{ it.name }}
+    </div>
+    <div class="Subtitle">{{ it.rarity | capitalize }} {{ "("+it.requires_attunement+")" if it.requires_attunement }}</div>
+    <div class="DetailsContainer">
+      <div class="DetailsBlock">{{ it.desc | replace(r/\*\*([^\*]*)\*\*/g, '<strong>$1</strong>') | replace(r/_([^_]*)_/g, '<em>$1</em>') | replace(r/\n[\*-] /g, '\n• ') | nl2br | safe }}</div>
+    </div>
+    <div class="CardFooter">
+      <div class="Category">{{ it.type }}</div>
+      <div></div>
+    </div>
+  </div>
+</div>

@@ -221,7 +221,7 @@
     <div class="DetailsContainer">
       <div class="DetailsBlock">
         {% if it.material %}Material: {{ it.material }}<br /><br />{% endif %}
-        {{ it.desc | replace(r/\*\*([^\*]*)\*\*/g, '<strong>$1</strong>') | replace(r/\n- /g, '\n• ') | nl2br | safe }}
+        {{ it.desc | replace(r/\*\*([^\*]*)\*\*/g, '<strong>$1</strong>') | replace(r/\n[-\*] /g, '\n• ') | nl2br | safe }}
       </div>
       {% if it.higher_level %}
       <div class="Header">At Higher Levels</div>

@@ -205,7 +205,7 @@
       {% if detailValue %}
         <div class="DetailsBlock">
           <span class="DetailProperty">{{ detailTitle }}:</span>
-          {{ detailValue | replace(r/\*\*([^\*]*)\*\*/g, '<em>$1</em>') | replace(r/\n- /g, '\n• ') | nl2br | safe}}
+          {{ detailValue | replace(r/\*\*([^\*]*)\*\*/g, '<em>$1</em>') | replace(r/\n[\*-] /g, '\n• ') | nl2br | safe}}
         </div>
       {% endif %}
     {% endmacro %}
