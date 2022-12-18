@@ -1,0 +1,249 @@
+<style>
+  @font-face {
+    font-family: "nodesto-condensed";
+    src: url("/proxy/https://github.com/jonathonf/solbera-dnd-fonts/raw/master/Nodesto%20Caps%20Condensed/Nodesto%20Caps%20Condensed.otf") format("opentype");
+    font-weight: normal;
+  }
+
+  @font-face {
+    font-family: "Scaly Sans";
+    src: url("/proxy/https://github.com/jonathonf/solbera-dnd-fonts/raw/master/Scaly%20Sans/Scaly%20Sans.otf") format("opentype");
+    font-weight: normal;
+  }
+
+  .CardFront {
+    width: auto;
+    border-radius: 8px;
+  }
+
+  .CardContent {
+    padding: 10px 10px 6px;
+
+    font-family: "Scaly Sans", serif;
+    font-style: normal;
+    font-weight: 300;
+  }
+
+  .CardContent hr {
+    margin: 0;
+    height: 3px;
+  }
+
+  .Title {
+    padding: 2px 8px;
+    background-color: #e8ebec;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-family: "nodesto-condensed", serif;
+    font-weight: normal;
+    font-style: normal;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .Subtitle {
+    padding: 4px;
+    text-align: center;
+    color: #e8ebec;
+    font-size: 1.15rem;
+    line-height: 1.15rem;
+  }
+
+  .StatsTable {
+    background-color: #e8ebec;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 4px 8px;
+  }
+
+  .StatCell {
+    padding: 2px;
+    font-size: 1.15rem;
+    line-height: 1.15rem;
+  }
+
+  .StatsTitle {
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  .Abilities {
+    background-color: #e8ebec;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    padding: 8px 0;
+  }
+
+  .Ability {
+    padding: 2px;
+    font-size: 1.5rem;
+    line-height: 1.25rem;
+    text-align: center;
+  }
+
+  .AbilityTitle {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-family: "nodesto-condensed", serif;
+    font-weight: normal;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
+  .DetailsContainer {
+    overflow: auto;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .DetailsContainer :first-child {
+    padding-top: 8px;
+  }
+
+  .DetailsContainer :last-child {
+    padding-bottom: 8px;
+  }
+
+  .DetailsBlock {
+    padding: 3px 8px;
+    background-color: #e8ebec;
+    font-size: 1.15rem;
+    line-height: 1.25rem;
+  }
+
+  .DetailHeader {
+    font-family: "nodesto-condensed", serif;
+    padding: 3px 8px;
+    background-color: #e8ebec;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+
+  .DetailProperty {
+    font-weight: bold;
+  }
+
+  .Header {
+    padding: 4px;
+    text-align: center;
+    color: #e8ebec;
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+
+  .Header~.DetailsBlock {
+    padding-top: 8px;
+  }
+
+  .CardFooter {
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    color: #e8ebec;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-weight: bold;
+  }
+
+  .Category {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-family: "nodesto-condensed", serif;
+    font-weight: normal;
+    font-style: normal;
+    text-align: center;
+  }
+</style>
+{% set color = "black" %}
+{% macro mod(val) %}
+  {% set x = (val - 10) // 2 %}
+  {% if x >= 0 %}+{% endif %}{{x}}
+{% endmacro %}
+<div class='CardFront' style="background-color: {{ color }}">
+  <div class='CardContent'>
+    <div class="Title">
+      {{ it.name }}
+    </div>
+    <div class="Subtitle">{{ it.size }}
+      {{ it.type }}. {{ it.alignment }}</div>
+    <div class="StatsTable">
+      <div class="StatCell">
+        <span class="StatsTitle">AC:</span>
+        {{ it.armor_class }}
+        {% if it.armor_desc %}({{ it.armor_desc }}){% endif %}
+      </div>
+      <div class="StatCell">
+        <span class="StatsTitle">HP:</span>
+        {{ it.hit_points }} ({{ it.hit_dice }})
+      </div>
+      <div class="StatCell">
+        <span class="StatsTitle">Speed:</span>
+        {{ it.speed.walk }} ft.
+      </div>
+      <div class="StatCell"></div>
+    </div>
+    <div class="Abilities">
+      {% macro ability(abilityTitle, abilityValue) %}
+        <div class="Ability">
+          <span class="AbilityTitle">{{ abilityTitle }}</span>
+          {{ mod(abilityValue) }}
+        </div>
+      {% endmacro %}
+      {{ ability("STR", it.strength) }}
+      {{ ability("DEX", it.dexterity) }}
+      {{ ability("CON", it.constitution) }}
+      {{ ability("INT", it.intelligence) }}
+      {{ ability("WIS", it.wisdom) }}
+      {{ ability("CHA", it.charisma) }}
+    </div>
+    <hr/>
+    {% macro detailBlock(detailTitle, detailValue) %}
+      {% if detailValue %}
+        <div class="DetailsBlock">
+          <span class="DetailProperty">{{ detailTitle }}:</span>
+          {{ detailValue | replace(r/\*\*([^\*]*)\*\*/g, '<em>$1</em>') | replace(r/\n- /g, '\n• ') | nl2br | safe}}
+        </div>
+      {% endif %}
+    {% endmacro %}
+    <div class="DetailsContainer">
+      {% set saves -%}
+      {% macro abSave(name, value, comma) -%}
+        {% if value != null -%}
+          {{ comma() }}
+          {{ name }}: {% if value >= 0 %}+{% endif %}{{ value }}
+        {%- endif %}
+      {%- endmacro %}
+      {% set comma = joiner() %}
+      {{ abSave("Str",it.strength_save, comma) }}{{ abSave("Dex",it.dexterity_save, comma) }}{{ abSave("Con",it.constitution_save, comma) }}{{ abSave("Int",it.intelligence_save, comma) }}{{ abSave("Wis",it.wisdom_save, comma) }}{{ abSave("Cha",it.charisma_save, comma) }}
+      {%- endset %}
+      {{ detailBlock("Saving Throws", saves | trim) }}
+
+      {{ detailBlock("Damage Resistances", it.damage_resistances) }}
+      {{ detailBlock("Damage Vulnerabilities", it.damage_vulnerabilities) }}
+      {{ detailBlock("Damage Immunities", it.damage_immunities) }}
+      {{ detailBlock("Condition Immunities", it.condition_immunities) }}
+      {{ detailBlock("Senses", it.senses) }}
+      {{ detailBlock("Languages", it.languages) }}
+      {% if it.special_abilities %}
+        <hr/>
+        <div class="DetailHeader">SPECIAL ABILITIES</div>
+        {% for ability in it.special_abilities %}
+          {{ detailBlock(ability.name, ability.desc) }}
+        {% endfor %}
+      {% endif %}
+      <hr/>
+      <div class="DetailHeader">ACTIONS</div>
+      {% for action in it.actions %}
+        {{ detailBlock(action.name, action.desc) }}
+      {% endfor %}
+    </div>
+    <div class="CardFooter">
+      <div class="Category">Challenge {{ it.challenge_rating }}</div>
+      <div></div>
+    </div>
+  </div>
+</div>
