@@ -210,16 +210,23 @@
       {% endif %}
     {% endmacro %}
     <div class="DetailsContainer">
-      {% set saves -%}
       {% macro abSave(name, value, comma) -%}
         {% if value != null -%}
-          {{ comma() }} {{ name }}: {% if value >= 0 %}+{% endif %}{{ value }}
+          {{ comma() }} {{ name }} {% if value >= 0 %}+{% endif %}{{ value }}
         {%- endif %}
       {%- endmacro %}
+
+      {% set saves -%}
       {% set comma = joiner() %}
         {{ abSave("Str",it.strength_save, comma) }}{{ abSave("Dex",it.dexterity_save, comma) }}{{ abSave("Con",it.constitution_save, comma) }}{{ abSave("Int",it.intelligence_save, comma) }}{{ abSave("Wis",it.wisdom_save, comma) }}{{ abSave("Cha",it.charisma_save, comma) }}
       {%- endset %}
       {{ detailBlock("Saving Throws", saves | trim) }}
+      
+      {% set skills -%}
+      {% set comma = joiner() %}
+        {{ abSave("Acrobatics",it.skills.acrobatics, comma) }} {{ abSave("Animal Handling",it.skills.animal_handling, comma) }} {{ abSave("Arcana",it.skills.arcana, comma) }} {{ abSave("Athletics",it.skills.athletics, comma) }} {{ abSave("Deception",it.skills.deception, comma) }} {{ abSave("History",it.skills.history, comma) }} {{ abSave("Insight",it.skills.insight, comma) }} {{ abSave("Intimidation",it.skills.intimidation, comma) }} {{ abSave("Investigation",it.skills.investigation, comma) }} {{ abSave("Medicine",it.skills.medicine, comma) }} {{ abSave("Nature",it.skills.nature, comma) }} {{ abSave("Perception",it.skills.perception, comma) }} {{ abSave("Performance",it.skills.performance, comma) }} {{ abSave("Persuasion",it.skills.persuasion, comma) }} {{ abSave("Religion",it.skills.religion, comma) }} {{ abSave("Sleight of Hand",it.skills.sleight_of_hand, comma) }} {{ abSave("Stealth",it.skills.stealth, comma) }} {{ abSave("Survival",it.skills.survival, comma) }}
+      {%- endset %}
+      {{ detailBlock("Skills", skills | trim) }}
 
       {{ detailBlock("Damage Resistances", it.damage_resistances) }}
       {{ detailBlock("Damage Vulnerabilities", it.damage_vulnerabilities) }}
@@ -234,11 +241,20 @@
           {{ detailBlock(ability.name, ability.desc) }}
         {% endfor %}
       {% endif %}
-      <hr/>
-      <div class="DetailHeader">ACTIONS</div>
-      {% for action in it.actions %}
-        {{ detailBlock(action.name, action.desc) }}
-      {% endfor %}
+      {% if it.actions %}
+        <hr/>
+        <div class="DetailHeader">ACTIONS</div>
+        {% for action in it.actions %}
+          {{ detailBlock(action.name, action.desc) }}
+        {% endfor %}
+      {% endif %}
+      {% if it.reaction %}
+        <hr/>
+        <div class="DetailHeader">REACTIONS</div>
+        {% for action in it.reactions %}
+          {{ detailBlock(action.name, action.desc) }}
+        {% endfor %}
+      {% endif %}
     </div>
     <div class="CardFooter">
       <div class="Category">Challenge {{ it.challenge_rating }}</div>
