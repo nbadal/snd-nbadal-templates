@@ -42,8 +42,8 @@
     padding: 4px;
     text-align: center;
     color: #e8ebec;
-    font-size: 1rem;
-    line-height: 1rem;
+    font-size: 1.15rem;
+    line-height: 1.15rem;
   }
 
   .StatsTable {
@@ -231,7 +231,7 @@
       {% endif %}
     </div>
     <div class="CardFooter">
-      <div class="Category">{{ it.archetype }}</div>
+      <div class="Category">{{ it.archetype | replace('<br/>',',') }}</div>
       <div>{{ it.page }}</div>
     </div>
   </div>
